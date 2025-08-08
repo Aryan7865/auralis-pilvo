@@ -26,48 +26,7 @@ It includes a modular UI component system, authentication pages, and backend fun
 - **Utility Hooks** (`use-toast`, `use-mobile`) for enhanced UX
 
 ---
-APIs
-OpenAI API (OPENAI_API_KEY)
-
-Whisper STT
-POST /v1/audio/transcriptions (model: whisper-1)
-Converts uploaded audio into text with word-level timestamps.
-
-Chat Completions
-POST /v1/chat/completions (model: gpt-4o-mini)
-Summarizes transcripts and documents into concise bullet points.
-
-Vision (Image Analysis)
-POST /v1/responses (model: gpt-4o-mini with vision)
-Generates detailed textual descriptions of uploaded images.
-
-Custom Diarization API (Python on Vercel)
-
-Endpoint: /api/diarize
-
-Uses librosa, scikit-learn, soundfile, numpy
-
-Steps:
-
-Voice Activity Detection (energy-based)
-
-MFCC feature extraction per segment
-
-KMeans clustering (max 2 speakers)
-
-Outputs { start, end, speaker } segments
-
-Document & URL Parsing
-
-pdf-parse – PDF text extraction
-
-mammoth – DOCX text extraction
-
-@mozilla/readability + jsdom – Clean article extraction from URLs
-
-Supabase API (NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY)
-
-Handles authentication via Magic Link (email) or Google OAuth.
+APIs: This project integrates multiple APIs to deliver its multi-modal AI capabilities. It uses the OpenAI API (OPENAI_API_KEY) for three core tasks: Whisper STT (POST /v1/audio/transcriptions, model whisper-1) to convert uploaded audio into text with word-level timestamps, Chat Completions (POST /v1/chat/completions, model gpt-4o-mini) to summarize transcripts and documents into concise bullet points, and Vision (POST /v1/responses, model gpt-4o-mini with vision) to generate detailed textual descriptions of uploaded images. For diarization, a Custom Diarization API is deployed as a Python serverless function on Vercel (/api/diarize) using librosa, scikit-learn, soundfile, and numpy, which performs voice activity detection (energy-based), MFCC feature extraction per segment, KMeans clustering (max two speakers), and outputs { start, end, speaker } segments. Document and URL parsing is handled locally via pdf-parse for PDF text extraction, mammoth for DOCX text extraction, and @mozilla/readability with jsdom for clean article extraction from HTML. Supabase API (NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY) manages authentication via Magic Link (email) or Google OAuth and optionally stores the last 10 user requests with generated outputs in a history table.
 
 (Optional) Stores last 10 user requests and generated outputs in history table.
 
